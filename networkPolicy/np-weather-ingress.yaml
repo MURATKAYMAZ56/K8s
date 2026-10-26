@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-weather-ingress
+  namespace: staging
+spec:
+  policyTypes:
+  - Ingress
+  podSelector:
+   matchLabels:
+     #match only app:weather label
+     app: weather
+  ingress:
+    # ingress settings to allow traffic only from
+    # the app:forecast labeled pods
+  - from:
+     - podSelector:
+        matchLabels:
+         app: forecast
